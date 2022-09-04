@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/BlackKhm/typescript-node/issues"
   },
-  "homepage": "https://github.com/BlackKhm/typescript-node#readme"
+  "homepage": "https://github.com/BlackKhm/typescript-node#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
