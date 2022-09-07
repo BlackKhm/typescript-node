@@ -1,4 +1,3 @@
-
 import {buildSchema} from 'graphql';
 
 export const  schema = buildSchema(`type Query {
@@ -7,7 +6,7 @@ export const  schema = buildSchema(`type Query {
   }
   `);
 // The root provides a resolver function for each API endpoint
-export const  rootQuery = {
+export const rootQuery = {
     firs_name: () => {
         return 'Hello firsname!';
     },
@@ -15,6 +14,4 @@ export const  rootQuery = {
         return 'Hello last_name!';
     },
 };
-
-
 
