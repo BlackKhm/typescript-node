@@ -4,10 +4,10 @@ export abstract class Model extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    constructor(model?: Partial<any>) {
-        super()
-        Object.assign(this, model)
-    }
+    // constructor(model?: Partial<any>) {
+    //     super()
+    //     Object.assign(this, model)
+    // }
 
     toJSON() {
         return { ...this, id: undefined }

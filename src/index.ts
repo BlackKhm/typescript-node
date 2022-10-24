@@ -6,17 +6,13 @@ import cors from "cors";
 import { createConnection } from "typeorm";
 import bodyParser from "body-parser";
 
-
 require('dotenv').config()
-
 
 import { graphqlHTTP } from 'express-graphql';
 import { ConstantType } from './constant';
 import { schema } from './Schema';
 
-
 import { Users } from "./Entities/User";
-
 
 const main = async() => {
   const app = epxress();
@@ -40,8 +36,8 @@ const main = async() => {
       password: process.env.DATABASE_PASSWORD,
       connectTimeout: 30000,
       logging: true,
-      synchronize: true,
-      cache: true,
+      synchronize: false,
+      // cache: true,
       entities: [Users]
   });
   app.use('/graphql', graphqlHTTP({
@@ -56,18 +52,9 @@ const main = async() => {
         return error.message
     },
 
-    // customFormatErrorFn: (error: any) => {
-    //     return error.m
-    // },
-    // context:{
-    //     request,
-    //     response
-    // }
-
 }));
 
 app.listen(process.env.SERVER_PORT, () => console.log(`Server has started http://localhost:${process.env.SERVER_PORT}`));
-
 
 }
 main().catch((err) => {
