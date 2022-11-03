@@ -1,7 +1,6 @@
 const epxress = require("express");
 
 import "reflect-metadata";
-// import { rootQuery, schema } from "./Entities/User";
 import cors from "cors";
 import { createConnection } from "typeorm";
 import bodyParser from "body-parser";
@@ -10,10 +9,9 @@ require('dotenv').config()
 
 import { graphqlHTTP } from 'express-graphql';
 import { ConstantType } from './constant';
-import { schema } from './Schema';
 
 import { Users } from "./Entities/User";
-
+import { schema } from "./Schema";
 const main = async() => {
   const app = epxress();
   app.use(bodyParser.urlencoded({ extended: true }))
@@ -36,8 +34,8 @@ const main = async() => {
       password: process.env.DATABASE_PASSWORD,
       connectTimeout: 30000,
       logging: true,
-      synchronize: false,
-      // cache: true,
+      synchronize: true,
+      cache: true,
       entities: [Users]
   });
   app.use('/graphql', graphqlHTTP({

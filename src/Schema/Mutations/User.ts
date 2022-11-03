@@ -1,67 +1,62 @@
+import { reverse } from 'dns';
 import { GraphQLInt, GraphQLString, GraphQLFloat } from 'graphql';
 import jwt from "jsonwebtoken";
+import { Users } from '../../Entities/User';
 
-import { ConstantName, ConstantType } from '../../constant';
-import { UserType } from '../TypeDefs/Response/UserResponse';
-import { Users } from "../../Entities/User";
+import { UserType } from '../TypeDefs/Response/UserType';
+const bcrypt = require('bcrypt');
 
 const USER_FIELDs = {
     id: { type: GraphQLInt },
     name: { type: GraphQLString },
+    username: {type: GraphQLString},
+    user_type: {type: GraphQLString},
+    code: {type: GraphQLString},
+    email: {type: GraphQLString},
+    phone: {type: GraphQLString},
+    password: { type: GraphQLString },
+    password_confirm: { type: GraphQLString },
 }
-
-export const CREATE_USER = {
+export const SIGN_UP_ACCOUNT = {
     type: UserType,
-    args: USER_FIELDs,
+    args: {
+        id: { type: GraphQLInt },
+        name: { type: GraphQLString },
+        username: {type: GraphQLString},
+        user_type: {type: GraphQLString},
+        code: {type: GraphQLString},
+        email: {type: GraphQLString},
+        phone: {type: GraphQLString},
+        password: { type: GraphQLString },
+        password_confirm: { type: GraphQLString }
+    },
     async resolve(parent: any, args: any, request: any) {
-        console.log(request)
-        // if (args.password !== args.password_confirm) {
-        //     return ConstantType['CONFIRM PASSWORD IS NOT MATCH'];
-        // }
-
-        // if (await Helper.IfEmailExits(args.email)) { //check if email address already use in system
-        //     return ConstantType['EMAIL ALREADY USE']
-        // }
-
-        // if (await Helper.IfPhoneExits(args.phone)) { //check if phone number already use in system
-        //     return ConstantType['PHONE NUMBER ALREADY USE']
-        // }
-
-        // const AccountCode = await Helper.GenerateAccountCode(Users, "000000000");
-        // if (await Helper.IfUserAccountExits(AccountCode)) {
-        //     return ConstantType['NOT ACCEPTABLE']
-        // }
-
-        // const roleId = args.role_id ? args.role_id : 1;
         const user = new Users();
-        user.first_name = args.first_name;
-        // user.username = args.username;
-        // user.code = AccountCode; //generate new account  code for new account
-        // user.email = args.email;
-        // user.user_type = 'primary';
-        // user.phone = args.phone;
-        // user.role = await Role.findOne(roleId);;
-        // user.password = await bcrypt.hash(args.password, 10); //args.password;
-        // const errors = await validate(user);
-        // if (errors.length > 0) {
-        //     const labelstring: any = Helper.ValidationErrorField(errors[0].property, errors[0].value)
-        //     const strMessage = labelstring.split(",");
-        //     return {
-        //         data: "",
-        //         meta: "",
-        //         statusCode: 401,
-        //         error: strMessage[0].trim(),
-        //         message: strMessage[1].trim()
-        //     }
-        // } else {
-        //     user.save();
-        //     return {
-        //         data: user,
-        //         meta: null,
-        //         statusCode: 200,
-        //         message: ConstantName.SUCCESS
-        //     }
-        // }
+        user.name = args.name;
+        user.user_type = args.user_type
+        user.phone = args.phone;
+        user.username = args.username;
+        await user.save();  
+        return user;
     }
 }
 
+export const UPDATE_USER_ACCOUNT = {
+    type: UserType,
+    args: USER_FIELDs,
+    async resolve(parent: any, args: any, request: any) {
+        console.log(args.id)
+        const inputUser:any =  await Users.findOne({where:{id: args.id}});
+        inputUser.name = args.name;
+        inputUser.save(); return inputUser;
+    }
+}
+
+export const DELETED_USER_ACCOUNT = {
+    type: UserType,
+    args: USER_FIELDs,
+    async resolve(parent: any, args: any, request: any) {
+        const inputUser:any =  await Users.findOne({where:{id: args.id}});
+        return inputUser;
+    }
+}
