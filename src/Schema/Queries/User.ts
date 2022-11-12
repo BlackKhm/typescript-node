@@ -1,10 +1,10 @@
 import { GraphQLInt, GraphQLString } from "graphql";
 import { Users } from "../../Entities/User";
-import { UserType } from "../TypeDefs/Response/UserType";
+import { UserResponse } from "../TypeDefs/Response/UserResponse";
 
 
 export const GET_USER_LIST ={
-    type: UserType,
+    type: UserResponse,
     args: {
         id: {type: GraphQLInt},
         name: {type: GraphQLString}

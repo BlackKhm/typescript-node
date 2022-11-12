@@ -34,7 +34,7 @@ const main = async() => {
       password: process.env.DATABASE_PASSWORD,
       connectTimeout: 30000,
       logging: true,
-      synchronize: true,
+      synchronize: false,
       cache: true,
       entities: [Users]
   });

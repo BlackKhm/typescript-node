@@ -8,7 +8,11 @@ export const UserType = new GraphQLObjectType({
         code: { type: GraphQLString },
         email: { type: GraphQLString },
         phone: { type: GraphQLString },
+        profile: { type: GraphQLString },
+        user_type: { type: GraphQLString },
         isActive: { type: GraphQLBoolean },
         banned: { type: GraphQLBoolean },
+        added_by: { type: GraphQLString },
+        isOnline: { type: GraphQLBoolean },
     })
 })

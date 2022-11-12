@@ -1,9 +1,6 @@
 import { ConstantName } from '../constant';
 import { Users } from '../Entities/User';
-// import { ProductStock } from '../Entities/ProductStock';
 import { getConnection, getRepository } from 'typeorm';
-// import { Product } from '../Entities/Product';
-
 
 class Helper {
     // Simple function
@@ -14,8 +11,6 @@ class Helper {
     static multiply = (a: any, b: any) => {
         return a * b;
     };
-
-
     static GenerateAccountCode = async (EntityName: any, digit: string,) => {
         let Lastest = await EntityName.findOne({
             order: { id: 'DESC' },
